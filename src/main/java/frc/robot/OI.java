@@ -6,37 +6,60 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.ArmCommands.*;
+import frc.robot.commands.GrabberCommands.*;
+import frc.robot.commands.StiltCommands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  //// CREATING BUTTONS
-  // One type of button is a joystick button which is any button on a
-  //// joystick.
-  // You create one by telling it which joystick it's on and which button
-  // number it is.
-  // Joystick stick = new Joystick(port);
-  // Button button = new JoystickButton(stick, buttonNumber);
+  private XboxController driveController;
+  private XboxController operController;
 
-  // There are a few additional built in buttons you can use. Additionally,
-  // by subclassing Button you can create custom triggers and bind those to
-  // commands the same as any other Button.
+  public OI() {
+    driveController = new XboxController(RobotMap.driveController);
+    operController = new XboxController(RobotMap.operController);
 
-  //// TRIGGERING COMMANDS WITH BUTTONS
-  // Once you have a button, it's trivial to bind it to a button in one of
-  // three ways:
+    JoystickButton aButton = new JoystickButton(operController, 1);
+    aButton.whenPressed(new LowerStilts());
 
-  // Start the command when the button is pressed and let it run the command
-  // until it is finished as determined by it's isFinished method.
-  // button.whenPressed(new ExampleCommand());
+    JoystickButton bButton = new JoystickButton(operController, 2);
+    bButton.whenPressed(new RaiseBackStilt());
 
-  // Run the command while the button is being held down and interrupt it once
-  // the button is released.
-  // button.whileHeld(new ExampleCommand());
+    JoystickButton xButton = new JoystickButton(operController, 3);
+    xButton.whenPressed(new RaiseFrontStilts());
 
-  // Start the command when the button is released and let it run the command
-  // until it is finished as determined by it's isFinished method.
-  // button.whenReleased(new ExampleCommand());
+    JoystickButton leftBumper = new JoystickButton(operController, 5);
+    leftBumper.whenPressed(new RollerUp());
+
+    JoystickButton rightBumper = new JoystickButton(operController, 6);
+    rightBumper.whenPressed(new RollerDown());
+
+
+  }
+
+  public double getXSpeed() {
+    return -driveController.getX(Hand.kLeft);
+  }
+
+  public double getYSpeed() {
+    return driveController.getY(Hand.kLeft);
+  }
+
+  public double getRotation() {
+    return driveController.getX(Hand.kRight);
+  }
+ 
+  public double getBackSpeed() {
+    return operController.getY(Hand.kLeft);
+  }
+
+  public double getArmSpeed() {
+    return operController.getY(Hand.kRight);
+  }
 }

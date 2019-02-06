@@ -7,13 +7,15 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.Alignment;
+import frc.robot.commands.UpdateArduino;
+import frc.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,11 +25,15 @@ import frc.robot.subsystems.ExampleSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
-
+  public static Drivetrain drivetrain;
+  public static Stilts stilts;
+  public static Arduino arduino;
+  public static Tower tower;
+  public static Arm arm;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+  private static PixyCam pixyCam = new PixyCam(RobotMap.pixyCam, RobotMap.camera);
 
   /**
    * This function is run when the robot is first started up and should be
@@ -35,10 +41,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_oi = new OI();
-    m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
+    
+    drivetrain = new Drivetrain();
+    stilts = new Stilts();
+    arduino = new Arduino();
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+    m_oi = new OI();
   }
 
   /**
@@ -51,6 +60,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putNumber("Voltage", pixyCam.getValue());
+    SmartDashboard.putBoolean("camera", pixyCam.camera());
+    pixyCam.detectTape();
   }
 
   /**
@@ -111,6 +123,7 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
+
     }
   }
 
