@@ -8,20 +8,20 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.robot.commands.*;
 
 /**
- * Add your docs here.
+ * Handles communication with an Arduino connected via USB
  */
 public class Arduino extends Subsystem {
-  I2C i2c;
-  DriverStation ds;
+  private SerialPort serial;
+  private DriverStation ds;
+  private boolean connected;
 
   public Arduino() {
-    i2c = new I2C(I2C.Port.kOnboard, 1);
+    connected = connect();
     ds = DriverStation.getInstance();
   }
 
@@ -33,38 +33,49 @@ public class Arduino extends Subsystem {
 
   /**
    * Updates information going to/from the Arduino
-   * 
-   * @return true on success
    */
-  public boolean update() {
-    boolean failed = false;
-    byte[] data = new byte[1];
+  public void update() {
+    if (ds.isDSAttached()) {
+      write("c");
+    } else {
+      write("n");
+    }
 
-    /**
-     * Byte 0 bitfield
-     * 0x80 DS Connected
-     * 0x40 Alliance (red = 0, blue = 1)
-     * 0x20 Autonomous
-     * 0x10 Teleop
-     * 0x08
-     * 0x04
-     * 0x02
-     * 0x01
-     */
-    data[0] = (byte) 0;
-    data[0] |= (ds.isDSAttached() ? 0x80 : 0x00);
-    data[0] |= (ds.getAlliance() == DriverStation.Alliance.Blue ? 0x40 : 0x00);
-    data[0] |= (ds.isAutonomous() ? 0x20 : 0x00);
-    data[0] |= (ds.isOperatorControl() ? 0x10 : 0x00);
+    if (ds.getAlliance() == DriverStation.Alliance.Blue) {
+      write("b");
+    } else {
+      write("r");
+    }
 
-    failed |= i2c.writeBulk(data);
-
-    return !failed;
+    if (ds.isDisabled()) {
+      write("d");
+    } else if (ds.isAutonomous()) {
+      write("a");
+    } else if (ds.isOperatorControl()) {
+      write("t");
+    } else {
+      
+    }
   }
-  
-  @Override
-  public void initSendable(SendableBuilder builder) {
-    super.initSendable(builder);
-    builder.addBooleanProperty("Connected", () -> !i2c.addressOnly(), null);
+
+  private void write(String s) {
+    if (!connected) {
+      connected = connect();
+    }
+
+    try {
+      serial.writeString(s);
+    } catch(Exception e) {
+      connected = false;
+    }
+  }
+
+  private boolean connect() {
+    try {
+      serial = new SerialPort(19200, SerialPort.Port.kUSB1);
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
   }
 }
