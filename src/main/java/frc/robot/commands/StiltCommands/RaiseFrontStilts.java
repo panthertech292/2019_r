@@ -9,7 +9,6 @@ package frc.robot.commands.StiltCommands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.subsystems.Stilts;
 
 /**
  * Add your docs here.
@@ -20,13 +19,14 @@ public class RaiseFrontStilts extends InstantCommand {
    */
   public RaiseFrontStilts() {
     super();
+    // Use requires() here to declare subsystem dependencies
     requires(Robot.stilts);
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Stilts.raiseFrontStilts();
+    Robot.stilts.raiseFrontStilts();
   }
 
 }

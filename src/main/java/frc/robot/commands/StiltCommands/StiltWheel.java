@@ -5,27 +5,42 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.GrabberCommands;
+package frc.robot.commands.StiltCommands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.Robot;
 
 /**
  * Add your docs here.
  */
-public class OpenGripper extends InstantCommand {
+public class StiltWheel extends TimedCommand {
   /**
    * Add your docs here.
    */
-  public OpenGripper() {
-    super();
+  public StiltWheel(double timeout) {
+    super(timeout);
     requires(Robot.stilts);
   }
 
-  // Called once when the command executes
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.grabber.openGripper();
   }
 
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+    Robot.stilts.runBackWheel(1);
+  }
+
+  // Called once after timeout
+  @Override
+  protected void end() {
+  }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
+  }
 }

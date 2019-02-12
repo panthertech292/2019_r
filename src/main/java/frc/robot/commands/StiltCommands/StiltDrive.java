@@ -9,11 +9,13 @@ package frc.robot.commands.StiltCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.Stilts;
 
 public class StiltDrive extends Command {
+
+
   public StiltDrive() {
     requires(Robot.stilts);
+
   }
 
   // Called just before this Command runs the first time
@@ -24,7 +26,7 @@ public class StiltDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Stilts.runBackWheel(Robot.m_oi.getBackSpeed());
+    Robot.stilts.runBackWheel(Robot.m_oi.getBackSpeed());
   }
 
   // Make this return true when this Command no longer needs to run execute()

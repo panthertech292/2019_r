@@ -9,37 +9,66 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
-import frc.robot.commands.DriveTeleop;
+import frc.robot.commands.DriveCommands.DriveTeleop;
 
 /**
  * Add your docs here.
  */
 public class Drivetrain extends Subsystem {
-  private WPI_TalonSRX frontLeftMotor;
-  private WPI_TalonSRX frontRightMotor;
-  private WPI_TalonSRX rearLeftMotor;
-  private WPI_TalonSRX rearRightMotor;
+  private static WPI_TalonSRX frontLeftMotor;
+  private static WPI_TalonSRX frontRightMotor;
+  private static WPI_TalonSRX rearLeftMotor;
+  private static WPI_TalonSRX rearRightMotor;
 
-  private static MecanumDrive drive;
+  final static double defaultP = 2.0;                     //all these things may need to be changed
+	final static double defaultI = 0.0006;
+	final static double defaultD = -.025;
+	final static double deadband = .1;
+  final static double ticksPerInch = 4096 / (6 * Math.PI);
 
-  final static double deadband = 0.1;
+  private double startDistance;
 
-  public Drivetrain(){
+
+  public Drivetrain() {
     frontLeftMotor = new WPI_TalonSRX(RobotMap.frontLeftMotor);
     frontRightMotor = new WPI_TalonSRX(RobotMap.frontRightMotor);
     rearLeftMotor = new WPI_TalonSRX(RobotMap.rearLeftMotor);
     rearRightMotor = new WPI_TalonSRX(RobotMap.rearRightMotor);
-    drive = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
+    
+    frontRightMotor.follow(rearRightMotor);
+		frontLeftMotor.follow(rearLeftMotor);
+
+    startDistance = getRawDistance();
   }
 
-  public static void mecanumDrive(double ySpeed, double xSpeed, double rotation) {
-    drive.driveCartesian(applyDeadband(xSpeed, deadband), applyDeadband(ySpeed, deadband), applyDeadband(rotation, deadband));
+  public void differentialDrive(double leftPercentage, double rightPercentage) {
+    rearLeftMotor.set(ControlMode.PercentOutput, applyDeadband(leftPercentage, deadband));
+		rearRightMotor.set(ControlMode.PercentOutput, applyDeadband(rightPercentage, deadband));
+		
   }
 
-  protected static double applyDeadband(double value, double deadband) {{
+  public void resetDistance() {
+    startDistance = getRawDistance();
+  }
+
+  private double getRawDistance() {
+		SmartDashboard.putNumber("Left Ticks", rearLeftMotor.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Right Ticks", rearRightMotor.getSelectedSensorPosition(0));
+		double total = 0;
+		total += (rearLeftMotor.getSelectedSensorPosition(0) / ticksPerInch);
+		total += (rearRightMotor.getSelectedSensorPosition(0) / ticksPerInch);
+		return total / 2.0;
+  }
+
+  public double getDistance() {
+		return (getRawDistance() - startDistance);
+	}
+  
+  protected static double applyDeadband(double value, double deadband) {
 		if (Math.abs(value) > deadband) {
 			if (value > 0.0) {
 				return (value - deadband) / (1.0 - deadband);
@@ -49,7 +78,6 @@ public class Drivetrain extends Subsystem {
 		} else {
 			return 0.0;
     }
-  }
   }
  
   

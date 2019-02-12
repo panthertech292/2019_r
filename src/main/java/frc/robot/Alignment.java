@@ -14,7 +14,7 @@ import frc.robot.subsystems.Grabber;
 /**
  * Add your docs here.
  */
-public class Alignment {
+/*public class Alignment {
 
    private static PhotoelectricSensor sensorCenter = new PhotoelectricSensor(RobotMap.centerSensor);
    private static PhotoelectricSensor sensorLeft = new PhotoelectricSensor(RobotMap.leftSensor);
@@ -43,4 +43,4 @@ public class Alignment {
  
 
 }
-
+*/

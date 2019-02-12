@@ -9,25 +9,23 @@ package frc.robot.commands.StiltCommands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.subsystems.Stilts;
 
 /**
  * Add your docs here.
  */
-public class LowerStilts extends InstantCommand {
+public class LowerStiltsLvl3 extends InstantCommand {
   /**
    * Add your docs here.
    */
-  public LowerStilts() {
+  public LowerStiltsLvl3() {
     super();
-    // Use requires() here to declare subsystem dependencies
     requires(Robot.stilts);
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Stilts.lowerStilts();
+    Robot.stilts.lowerStiltsLvl3();
   }
 
 }

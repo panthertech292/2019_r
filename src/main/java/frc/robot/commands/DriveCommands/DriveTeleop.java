@@ -5,14 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ArmCommands;
+package frc.robot.commands.DriveCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import frc.robot.Alignment;
 import frc.robot.Robot;
 
-public class ArmControl extends Command {
-  public ArmControl() {
-    requires(Robot.arm);
+
+public class DriveTeleop extends Command {
+  public DriveTeleop() {
+  requires(Robot.drivetrain);
   }
 
   // Called just before this Command runs the first time
@@ -23,7 +26,12 @@ public class ArmControl extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.arm.armControl(Robot.m_oi.getArmSpeed());
+    Robot.drivetrain.differentialDrive(Robot.m_oi.getYSpeed(), Robot.m_oi.getXSpeed());
+    SmartDashboard.putNumber("Left Joystick", Robot.m_oi.getYSpeed());
+    SmartDashboard.putNumber("Left Joystick", Robot.m_oi.getXSpeed());
+    SmartDashboard.putNumber("Right Joystick", Robot.m_oi.getRotation());
+    //Alignment.detectPosition();
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

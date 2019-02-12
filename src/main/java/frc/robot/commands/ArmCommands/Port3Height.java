@@ -10,31 +10,51 @@ package frc.robot.commands.ArmCommands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ArmControl extends Command {
-  public ArmControl() {
+
+public class Port3Height extends Command {
+  private boolean goDown = false;
+  public Port3Height() {
     requires(Robot.arm);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.arm.releaseBrake();
+    if (Robot.arm.getHeight() > Robot.arm.getPort3height()) {
+      goDown = true;
+    } else {
+      goDown = false;
+    }
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.arm.armControl(Robot.m_oi.getArmSpeed());
+    if (goDown) {
+      Robot.arm.armControl(Robot.arm.downSpeed);
+    }
+    else {
+      Robot.arm.armControl(Robot.arm.upSpeed);
+    }
+     
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+     if (goDown) {
+      return Robot.arm.getHeight() <= Robot.arm.getPort3height();
+    } else {
+      return Robot.arm.getHeight() >= Robot.arm.getPort3height();
+    }
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.arm.engageBrake();
   }
 
   // Called when another command which requires one or more of the same

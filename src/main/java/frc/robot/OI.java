@@ -26,20 +26,28 @@ public class OI {
     operController = new XboxController(RobotMap.operController);
 
     JoystickButton aButton = new JoystickButton(operController, 1);
-    aButton.whenPressed(new LowerStilts());
+    aButton.whenPressed(new AutoClimbLvl2());
 
     JoystickButton bButton = new JoystickButton(operController, 2);
-    bButton.whenPressed(new RaiseBackStilt());
+    bButton.whenPressed(new AutoClimbLvl3());
 
     JoystickButton xButton = new JoystickButton(operController, 3);
-    xButton.whenPressed(new RaiseFrontStilts());
+    xButton.whenPressed(new Port1Height());
+    JoystickButton yButton = new JoystickButton(operController, 4);
+    yButton.whenPressed(new Hatch1Height());
 
     JoystickButton leftBumper = new JoystickButton(operController, 5);
     leftBumper.whenPressed(new RollerUp());
 
     JoystickButton rightBumper = new JoystickButton(operController, 6);
     rightBumper.whenPressed(new RollerDown());
-
+    
+    aButton.close();
+    bButton.close();
+    xButton.close();
+    yButton.close();
+    leftBumper.close();
+    rightBumper.close();
 
   }
 

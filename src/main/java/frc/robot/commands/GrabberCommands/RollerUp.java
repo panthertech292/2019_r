@@ -9,7 +9,6 @@ package frc.robot.commands.GrabberCommands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.subsystems.Grabber;
 
 /**
  * Add your docs here.
@@ -26,7 +25,7 @@ public class RollerUp extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Grabber.rollerUp();
+    Robot.grabber.rollerUp();
   }
 
 }

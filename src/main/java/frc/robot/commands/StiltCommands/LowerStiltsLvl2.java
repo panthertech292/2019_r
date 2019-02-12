@@ -5,27 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ArmCommands;
+package frc.robot.commands.StiltCommands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
-
 /**
  * Add your docs here.
  */
-public class EngageBrake extends InstantCommand {
+public class LowerStiltsLvl2 extends InstantCommand {
   /**
    * Add your docs here.
    */
-  public EngageBrake() {
+  public LowerStiltsLvl2() {
     super();
-    requires(Robot.arm);
+    requires(Robot.stilts);
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.arm.engageBrake();
+    Robot.stilts.lowerStiltsLvl2();
   }
 
 }

@@ -7,13 +7,12 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Alignment;
+//import frc.robot.Alignment;
 import frc.robot.commands.UpdateArduino;
 import frc.robot.subsystems.*;
 
@@ -31,6 +30,7 @@ public class Robot extends TimedRobot {
   public static Arduino arduino;
   public static Tower tower;
   public static Arm arm;
+  public static Grabber grabber;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
   private static PixyCam pixyCam = new PixyCam(RobotMap.pixyCam, RobotMap.camera);
@@ -45,6 +45,9 @@ public class Robot extends TimedRobot {
     drivetrain = new Drivetrain();
     stilts = new Stilts();
     arduino = new Arduino();
+    grabber = new Grabber();
+    tower = new Tower();
+    arm = new Arm();
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
     m_oi = new OI();

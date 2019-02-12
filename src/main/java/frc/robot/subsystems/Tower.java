@@ -7,7 +7,8 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -17,36 +18,36 @@ import frc.robot.RobotMap;
 public class Tower extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private static Solenoid tower1;
-  private static Solenoid tower2;
+  private static DoubleSolenoid tower1;
+  private static DoubleSolenoid tower2;
 
   public Tower() {
-    tower1 = new Solenoid(RobotMap.tower1);
-    tower2 = new Solenoid(RobotMap.tower2);
+    tower1 = new DoubleSolenoid(RobotMap.tower1in, RobotMap.rollerout);
+    tower2 = new DoubleSolenoid(RobotMap.tower2in, RobotMap.tower2out);
   }
 
-  public static void tower1Up() {
-    tower1.set(true);
+  public void tower1Up() {
+    tower1.set(Value.kForward);
   }
 
-  public static void tower2Up() {
-    tower2.set(true);
+  public void tower2Up() {
+    tower2.set(Value.kForward);
   }
 
-  public static void tower1Down() {
-    tower1.set(false);
+  public void tower1Down() {
+    tower1.set(Value.kReverse);
   }
 
-  public static void tower2Down() {
-    tower2.set(false);
+  public void tower2Down() {
+    tower2.set(Value.kReverse);
   }
 
-  public static boolean getTower1() {
-    return tower1.get();
+  public boolean getTower1() {
+    return (tower1.get() == Value.kForward);
   }
 
-  public static boolean getTower2() {
-    return tower2.get();
+  public boolean getTower2() {
+    return (tower2.get() == Value.kForward);
   }
 
   @Override

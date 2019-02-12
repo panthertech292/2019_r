@@ -7,7 +7,8 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -17,28 +18,28 @@ import frc.robot.RobotMap;
 public class Grabber extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private static Solenoid gripper;
-  private static Solenoid roller;
+  private static DoubleSolenoid gripper;
+  private static DoubleSolenoid roller;
 
   public Grabber() {
-    gripper = new Solenoid(RobotMap.gripper);
-    roller = new Solenoid(RobotMap.roller);
+    gripper = new DoubleSolenoid(RobotMap.gripperin, RobotMap.gripperout);
+    roller = new DoubleSolenoid(RobotMap.rollerin, RobotMap.rollerout);
   }
 
-  public static void closeGripper() {
-    gripper.set(false);
+  public void closeGripper() {
+    gripper.set(Value.kReverse);
   }
 
-  public static void openGripper() {
-    gripper.set(true);
+  public void openGripper() {
+    gripper.set(Value.kForward);
   }
 
-  public static void rollerUp() {
-    roller.set(true);
+  public void rollerUp() {
+    roller.set(Value.kForward);
   }
 
-  public static void rollerDown() {
-    roller.set(false);
+  public void rollerDown() {
+    roller.set(Value.kReverse);
   }
 
   @Override

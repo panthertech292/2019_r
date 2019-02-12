@@ -8,7 +8,6 @@
 package frc.robot.commands.StiltCommands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.subsystems.Stilts;
 import frc.robot.Robot;
 
 /**
@@ -28,7 +27,7 @@ public class RaiseBackStilt extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Stilts.raiseBackStilt();
+    Robot.stilts.raiseBackStilt();
   }
 
 }

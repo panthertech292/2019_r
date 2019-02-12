@@ -9,7 +9,6 @@ package frc.robot.commands.ArmCommands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.subsystems.Arm;
 
 /**
  * Add your docs here.
@@ -26,7 +25,7 @@ public class ReleaseBrake extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Arm.releaseBrake();
+    Robot.arm.releaseBrake();
   }
 
 }

@@ -9,7 +9,6 @@ package frc.robot.commands.TowerCommands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.subsystems.Tower;
 
 /**
  * Add your docs here.
@@ -26,8 +25,8 @@ public class TowerStage2 extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Tower.tower1Up();
-    Tower.tower2Up();
+    Robot.tower.tower1Up();
+    Robot.tower.tower2Up();
   }
 
 }
