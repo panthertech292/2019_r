@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
     
     drivetrain = new Drivetrain();
     stilts = new Stilts();
-    arduino = new Arduino();
+    //arduino = new Arduino();
     grabber = new Grabber();
     tower = new Tower();
     arm = new Arm();

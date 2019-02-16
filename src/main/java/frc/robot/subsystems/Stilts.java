@@ -28,10 +28,10 @@ public class Stilts extends Subsystem {
 
  
   public Stilts(){
-   backStilt12 = new DoubleSolenoid(RobotMap.backStilt12in, RobotMap.backStilt12out);
-   backStilt8 = new DoubleSolenoid(RobotMap.backStilt8in, RobotMap.backStilt8out);
-   frontStilts12 = new DoubleSolenoid(RobotMap.frontStilts12in, RobotMap.frontStilts12out);
-   frontStilts8 = new DoubleSolenoid(RobotMap.frontStilts8in, RobotMap.frontStilts8out);
+   backStilt12 = new DoubleSolenoid(RobotMap.backStilt12pcm, RobotMap.backStilt12in, RobotMap.backStilt12out);
+   backStilt8 = new DoubleSolenoid(RobotMap.backStilt8pcm, RobotMap.backStilt8in, RobotMap.backStilt8out);
+   frontStilts12 = new DoubleSolenoid(RobotMap.frontStilts12pcm, RobotMap.frontStilts12in, RobotMap.frontStilts12out);
+   frontStilts8 = new DoubleSolenoid(RobotMap.frontStilts8pcm, RobotMap.frontStilts8in, RobotMap.frontStilts8out);
    backWheel = new WPI_TalonSRX(RobotMap.backWheel);
   }
 

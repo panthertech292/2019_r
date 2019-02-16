@@ -25,7 +25,7 @@ public class ReleaseBrake extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.arm.releaseBrake();
+  //  Robot.arm.releaseBrake();
   }
 
 }

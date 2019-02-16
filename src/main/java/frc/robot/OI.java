@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ArmCommands.*;
 import frc.robot.commands.GrabberCommands.*;
 import frc.robot.commands.StiltCommands.*;
+import frc.robot.commands.TowerCommands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -41,7 +42,20 @@ public class OI {
 
     JoystickButton rightBumper = new JoystickButton(operController, 6);
     rightBumper.whenPressed(new RollerDown());
+
+    JoystickButton back = new JoystickButton(operController, 7);
+    back.whenPressed(new OpenGripper());
+
+    JoystickButton start = new JoystickButton(operController, 8);
+    start.whenPressed(new CloseGripper());
+
+    JoystickButton rightStick = new JoystickButton(operController, 9);
+    rightStick.whenPressed(new TowerFloor());
+
+    JoystickButton leftStick = new JoystickButton(operController, 10);
+    leftStick.whenPressed(new TowerStage1());
     
+
     aButton.close();
     bButton.close();
     xButton.close();
@@ -51,23 +65,23 @@ public class OI {
 
   }
 
-  public double getXSpeed() {
-    return -driveController.getX(Hand.kLeft);
+  public double getLeftSpeed() {
+    return -driveController.getY(Hand.kLeft);
   }
 
-  public double getYSpeed() {
-    return driveController.getY(Hand.kLeft);
+  public double getRightSpeed() {
+    return driveController.getY(Hand.kRight);
   }
 
-  public double getRotation() {
-    return driveController.getX(Hand.kRight);
-  }
- 
-  public double getBackSpeed() {
+  /*public double getBackSpeed() {
     return operController.getY(Hand.kLeft);
   }
-
+*/
   public double getArmSpeed() {
     return operController.getY(Hand.kRight);
+  }
+
+  public double getRollerSpeed() {
+    return operController.getY(Hand.kLeft);
   }
 }

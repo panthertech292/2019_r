@@ -22,8 +22,8 @@ public class Tower extends Subsystem {
   private static DoubleSolenoid tower2;
 
   public Tower() {
-    tower1 = new DoubleSolenoid(RobotMap.tower1in, RobotMap.rollerout);
-    tower2 = new DoubleSolenoid(RobotMap.tower2in, RobotMap.tower2out);
+    tower1 = new DoubleSolenoid(RobotMap.tower1pcm, RobotMap.tower1in, RobotMap.tower1out);
+    tower2 = new DoubleSolenoid(RobotMap.tower2pcm, RobotMap.tower2in, RobotMap.tower2out);
   }
 
   public void tower1Up() {

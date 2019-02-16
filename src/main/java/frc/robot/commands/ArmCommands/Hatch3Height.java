@@ -31,7 +31,7 @@ public class Hatch3Height extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.arm.releaseBrake();
+   // Robot.arm.releaseBrake();
     if (goDown) {
       Robot.arm.armControl(Robot.arm.downSpeed);
     }
@@ -54,7 +54,7 @@ public class Hatch3Height extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.arm.engageBrake();
+    //Robot.arm.engageBrake();
   }
 
   // Called when another command which requires one or more of the same

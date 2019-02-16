@@ -8,12 +8,14 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.ArmCommands.EngageBrake;
+//import frc.robot.commands.ArmCommands.EngageBrake;
 
 /**
  * Add your docs here.
@@ -22,9 +24,8 @@ public class Arm extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private static WPI_TalonSRX armMotor;
-  private static SpeedControllerGroup armMotors;
-  private static Solenoid brake;
-  private final static double ticksPerInch = 100;
+  //private static DoubleSolenoid brake;
+  private final static double ticksPerInch = 100;         //update this
   public final  double floorHeight = 0;
   public final  double hatch1Height = 19;
   public final  double hatch2Height = 47;
@@ -37,20 +38,20 @@ public class Arm extends Subsystem {
 
   public Arm() {
     armMotor = new WPI_TalonSRX(RobotMap.armMotor);
-    brake = new Solenoid(RobotMap.brake);
+    //brake = new DoubleSolenoid(RobotMap.brakepcm, RobotMap.brakein, RobotMap.brakeout);
   }
 
   public void armControl(double percent) {
-    armMotors.set(percent);
+    armMotor.set(ControlMode.PercentOutput, percent);
   }
 
-  public void engageBrake() {
-    brake.set(true);
-  }
+  //public void engageBrake() {
+  //  brake.set(Value.kForward);
+  //}
 
-  public void releaseBrake() {
-    brake.set(false);
-  }
+  //public void releaseBrake() {
+  //  brake.set(Value.kReverse);
+  //}
 
   public double getHeight() {
     double height;
@@ -84,6 +85,6 @@ public class Arm extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    setDefaultCommand(new EngageBrake());
+    //setDefaultCommand(new EngageBrake());
   }
 }

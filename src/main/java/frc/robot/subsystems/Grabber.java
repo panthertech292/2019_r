@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,10 +23,12 @@ public class Grabber extends Subsystem {
   // here. Call these from Commands.
   private static DoubleSolenoid gripper;
   private static DoubleSolenoid roller;
+  private static WPI_TalonSRX rollerMotor;
 
   public Grabber() {
-    gripper = new DoubleSolenoid(RobotMap.gripperin, RobotMap.gripperout);
-    roller = new DoubleSolenoid(RobotMap.rollerin, RobotMap.rollerout);
+    gripper = new DoubleSolenoid(RobotMap.gripperpcm, RobotMap.gripperin, RobotMap.gripperout);
+    roller = new DoubleSolenoid(RobotMap.rollerpcm, RobotMap.rollerin, RobotMap.rollerout);
+    rollerMotor = new WPI_TalonSRX(RobotMap.rollerMotor);
   }
 
   public void closeGripper() {
@@ -42,6 +47,9 @@ public class Grabber extends Subsystem {
     roller.set(Value.kReverse);
   }
 
+  public void rollerControl(double percent) {
+    rollerMotor.set(ControlMode.PercentOutput, percent);
+  }
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

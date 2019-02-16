@@ -13,11 +13,11 @@ import frc.robot.Robot;
 /**
  * Add your docs here.
  */
-public class EngageBrake extends InstantCommand {
+//public class EngageBrake extends InstantCommand {
   /**
    * Add your docs here.
    */
-  public EngageBrake() {
+ /* public EngageBrake() {
     super();
     requires(Robot.arm);
   }
@@ -29,3 +29,4 @@ public class EngageBrake extends InstantCommand {
   }
 
 }
+*/

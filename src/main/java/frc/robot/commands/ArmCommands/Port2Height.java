@@ -20,7 +20,7 @@ public class Port2Height extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.arm.releaseBrake();
+   // Robot.arm.releaseBrake();
     if (Robot.arm.getHeight() > Robot.arm.getPort2height()) {
       goDown = true;
     } else {
@@ -54,7 +54,7 @@ public class Port2Height extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.arm.engageBrake();
+   // Robot.arm.engageBrake();
   }
 
   // Called when another command which requires one or more of the same
