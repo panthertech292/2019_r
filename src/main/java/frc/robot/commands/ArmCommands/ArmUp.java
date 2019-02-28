@@ -5,21 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.StiltCommands;
+package frc.robot.commands.ArmCommands;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
-public class StiltWheel extends TimedCommand {
-  /**
-   * Add your docs here.
-   */
-  public StiltWheel(double timeout) {
-    super(timeout);
-    requires(Robot.stilts);
+public class ArmUp extends Command {
+  public ArmUp() {
+    requires(Robot.arm);
   }
 
   // Called just before this Command runs the first time
@@ -30,10 +23,16 @@ public class StiltWheel extends TimedCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.stilts.runBackWheel(-1);
+    Robot.arm.armControl(.5);
   }
 
-  // Called once after timeout
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }
+
+  // Called once after isFinished returns true
   @Override
   protected void end() {
   }

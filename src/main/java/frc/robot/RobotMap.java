@@ -26,6 +26,7 @@ public class RobotMap {
   // Controllers
   public static int driveController = 0;
   public static int operController = 1;
+  public static int operPOV = 0;
 
   //Sensors
   public static int centerSensor = 0;
@@ -39,12 +40,12 @@ public class RobotMap {
   public static int backStilt12out = 7;
 
   public static int backStilt8pcm = 0;
-  public static int backStilt8in = 0;
-  public static int backStilt8out = 1;
+  public static int backStilt8in = 2;
+  public static int backStilt8out = 3;
 
   public static int frontStilts12pcm = 0;
-  public static int frontStilts12in = 2;
-  public static int frontStilts12out = 3;
+  public static int frontStilts12in = 0;
+  public static int frontStilts12out = 1;
 
   public static int frontStilts8pcm = 1;
   public static int frontStilts8in = 4;
@@ -72,4 +73,8 @@ public class RobotMap {
 
   //Cameras
   public static int pixyCam = 0;
+
+  //Analog Inputs
+  public static int pressureSensor = 1;
+  public static int pot = 2;
 }

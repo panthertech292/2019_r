@@ -7,40 +7,26 @@
 
 package frc.robot.commands.StiltCommands;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 /**
  * Add your docs here.
  */
-public class StiltWheel extends TimedCommand {
+public class RaiseAllStilts extends InstantCommand {
   /**
    * Add your docs here.
    */
-  public StiltWheel(double timeout) {
-    super(timeout);
+  public RaiseAllStilts() {
+    super();
     requires(Robot.stilts);
   }
 
-  // Called just before this Command runs the first time
+  // Called once when the command executes
   @Override
   protected void initialize() {
+    Robot.stilts.raiseBackStilt();
+    Robot.stilts.raiseFrontStilts();
   }
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    Robot.stilts.runBackWheel(-1);
-  }
-
-  // Called once after timeout
-  @Override
-  protected void end() {
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
 }

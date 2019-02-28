@@ -9,7 +9,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.ArmCommands.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.GrabberCommands.*;
 import frc.robot.commands.StiltCommands.*;
 import frc.robot.commands.TowerCommands.*;
@@ -27,15 +27,10 @@ public class OI {
     operController = new XboxController(RobotMap.operController);
 
     JoystickButton aButton = new JoystickButton(operController, 1);
-    aButton.whenPressed(new AutoClimbLvl2());
+    aButton.whileHeld(new RollerIn());
 
     JoystickButton bButton = new JoystickButton(operController, 2);
-    bButton.whenPressed(new AutoClimbLvl3());
-
-    JoystickButton xButton = new JoystickButton(operController, 3);
-    xButton.whenPressed(new Port1Height());
-    JoystickButton yButton = new JoystickButton(operController, 4);
-    yButton.whenPressed(new Hatch1Height());
+    bButton.whileHeld(new RollerOut());
 
     JoystickButton leftBumper = new JoystickButton(operController, 5);
     leftBumper.whenPressed(new RollerUp());
@@ -43,23 +38,32 @@ public class OI {
     JoystickButton rightBumper = new JoystickButton(operController, 6);
     rightBumper.whenPressed(new RollerDown());
 
-    JoystickButton back = new JoystickButton(operController, 7);
-    back.whenPressed(new OpenGripper());
+    JoystickButton xButton = new JoystickButton(operController, 3);
+    xButton.whenPressed(new OpenGripper());
+
+    JoystickButton yButton = new JoystickButton(operController, 4);
+    yButton.whenPressed(new CloseGripper());
 
     JoystickButton start = new JoystickButton(operController, 8);
-    start.whenPressed(new CloseGripper());
+    start.whenPressed(new TowerUp());
 
-    JoystickButton rightStick = new JoystickButton(operController, 9);
-    rightStick.whenPressed(new TowerFloor());
+    JoystickButton back = new JoystickButton(operController, 7);
+    back.whenPressed(new TowerDown());
 
-    JoystickButton leftStick = new JoystickButton(operController, 10);
-    leftStick.whenPressed(new TowerStage1());
-    
+    JoystickButton driveA = new JoystickButton(driveController, 1);
+    driveA.whenPressed(new AutoClimbLvl2());
+
+    JoystickButton driveB = new JoystickButton(driveController, 2);
+    driveB.whenPressed(new AutoClimbLvl3());
+
+    JoystickButton driveX = new JoystickButton(driveController, 3);
+    driveX.whenPressed(new RaiseAllStilts());
+
+    JoystickButton driveY = new JoystickButton(driveController, 4);       //for testing: remove later
+    driveY.whenActive(new LowerStiltsLvl2());
 
     aButton.close();
     bButton.close();
-    xButton.close();
-    yButton.close();
     leftBumper.close();
     rightBumper.close();
 
@@ -73,15 +77,14 @@ public class OI {
     return driveController.getY(Hand.kRight);
   }
 
-  /*public double getBackSpeed() {
-    return operController.getY(Hand.kLeft);
-  }
-*/
-  public double getArmSpeed() {
+  public double getArmSpeed() {                 
     return operController.getY(Hand.kRight);
   }
 
-  public double getRollerSpeed() {
+  public double getWheelSpeed() {
     return operController.getY(Hand.kLeft);
   }
+
+
+
 }

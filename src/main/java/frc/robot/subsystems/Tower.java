@@ -21,9 +21,16 @@ public class Tower extends Subsystem {
   private static DoubleSolenoid tower1;
   private static DoubleSolenoid tower2;
 
+  public enum TowerStates {
+    stage0, stage1, stage2;
+  }
+
+  private TowerStates towerState;
+
   public Tower() {
     tower1 = new DoubleSolenoid(RobotMap.tower1pcm, RobotMap.tower1in, RobotMap.tower1out);
     tower2 = new DoubleSolenoid(RobotMap.tower2pcm, RobotMap.tower2in, RobotMap.tower2out);
+    towerState = TowerStates.stage1;
   }
 
   public void tower1Up() {
@@ -31,7 +38,7 @@ public class Tower extends Subsystem {
   }
 
   public void tower2Up() {
-    tower2.set(Value.kForward);
+    tower2.set(Value.kReverse);
   }
 
   public void tower1Down() {
@@ -39,7 +46,7 @@ public class Tower extends Subsystem {
   }
 
   public void tower2Down() {
-    tower2.set(Value.kReverse);
+    tower2.set(Value.kForward);
   }
 
   public boolean getTower1() {
@@ -48,6 +55,25 @@ public class Tower extends Subsystem {
 
   public boolean getTower2() {
     return (tower2.get() == Value.kForward);
+  }
+
+  public void setTowerStage(TowerStates state) {
+    towerState = state;
+    if (towerState == TowerStates.stage0) {
+      tower1Down();
+      tower2Down();
+    } else if (towerState == TowerStates.stage1) {
+      tower1Up();
+      tower2Down();
+    } else if (towerState == TowerStates.stage2) {
+      tower1Up();
+      tower2Up();
+    }
+
+  }
+
+  public TowerStates getTowerStage() {
+    return towerState;
   }
 
   @Override

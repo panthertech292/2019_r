@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -31,6 +33,7 @@ public class Robot extends TimedRobot {
   public static Tower tower;
   public static Arm arm;
   public static Grabber grabber;
+  public static AnalogInput pressureSensor;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
   private static PixyCam pixyCam = new PixyCam(RobotMap.pixyCam, RobotMap.camera);
@@ -48,6 +51,8 @@ public class Robot extends TimedRobot {
     grabber = new Grabber();
     tower = new Tower();
     arm = new Arm();
+    pressureSensor = new AnalogInput(RobotMap.pressureSensor);
+    CameraServer.getInstance().startAutomaticCapture();
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
     m_oi = new OI();
@@ -65,7 +70,9 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     SmartDashboard.putNumber("Voltage", pixyCam.getValue());
     SmartDashboard.putBoolean("camera", pixyCam.camera());
+    SmartDashboard.putNumber("Pressure", (250 * (pressureSensor.getVoltage() / 5) - 25));
     pixyCam.detectTape();
+    
   }
 
   /**

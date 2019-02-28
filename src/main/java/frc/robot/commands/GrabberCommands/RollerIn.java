@@ -10,8 +10,8 @@ package frc.robot.commands.GrabberCommands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RollerControl extends Command {
-  public RollerControl() {
+public class RollerIn extends Command {
+  public RollerIn() {
      requires(Robot.grabber);
   }
 
@@ -23,7 +23,7 @@ public class RollerControl extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.grabber.rollerControl(Robot.m_oi.getRollerSpeed());
+    Robot.grabber.rollerControl(1);
   }
 
   // Make this return true when this Command no longer needs to run execute()

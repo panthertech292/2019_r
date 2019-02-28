@@ -9,6 +9,10 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.robot.commands.StiltCommands.BackWheelStop;
+import frc.robot.commands.StiltCommands.StiltDrive;
+import frc.robot.commands.StiltCommands.StiltWheel;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -34,27 +38,27 @@ public class Stilts extends Subsystem {
    frontStilts8 = new DoubleSolenoid(RobotMap.frontStilts8pcm, RobotMap.frontStilts8in, RobotMap.frontStilts8out);
    backWheel = new WPI_TalonSRX(RobotMap.backWheel);
   }
-
+  
   public void lowerStiltsLvl3(){
     backStilt12.set(Value.kReverse);
-    backStilt8.set(Value.kReverse);
-    frontStilts12.set(Value.kReverse);
+    backStilt8.set(Value.kForward);
+    frontStilts12.set(Value.kForward);
     frontStilts8.set(Value.kReverse);
   }
 
   public void lowerStiltsLvl2() {
-    backStilt8.set(Value.kReverse);
+    backStilt8.set(Value.kForward);
     frontStilts8.set(Value.kReverse);
   }
 
   public void raiseFrontStilts(){
-    frontStilts12.set(Value.kForward);
+    frontStilts12.set(Value.kReverse);
     frontStilts8.set(Value.kForward);
   }
 
   public void raiseBackStilt(){
     backStilt12.set(Value.kForward);
-    backStilt8.set(Value.kForward);
+    backStilt8.set(Value.kReverse);
   }
 
   public void runBackWheel(double percent){
@@ -64,6 +68,6 @@ public class Stilts extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new StiltDrive());
   }
 }

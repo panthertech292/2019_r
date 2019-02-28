@@ -26,10 +26,7 @@ public class DriveTeleop extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drivetrain.differentialDrive(Robot.m_oi.getLeftSpeed(), Robot.m_oi.getRightSpeed());
-   // SmartDashboard.putNumber("Left Joystick", Robot.m_oi.getYSpeed());
-   // SmartDashboard.putNumber("Left Joystick", Robot.m_oi.getXSpeed());
-   // SmartDashboard.putNumber("Right Joystick", Robot.m_oi.getRotation());
+   Robot.drivetrain.differentialDrive(Robot.m_oi.getLeftSpeed(), Robot.m_oi.getRightSpeed());
     //Alignment.detectPosition();
 
   }
