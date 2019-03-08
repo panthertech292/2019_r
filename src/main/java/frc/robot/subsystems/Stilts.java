@@ -9,9 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.StiltCommands.BackWheelStop;
 import frc.robot.commands.StiltCommands.StiltDrive;
-import frc.robot.commands.StiltCommands.StiltWheel;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 

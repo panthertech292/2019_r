@@ -62,11 +62,6 @@ public class OI {
     JoystickButton driveY = new JoystickButton(driveController, 4);       //for testing: remove later
     driveY.whenActive(new LowerStiltsLvl2());
 
-    aButton.close();
-    bButton.close();
-    leftBumper.close();
-    rightBumper.close();
-
   }
 
   public double getLeftSpeed() {

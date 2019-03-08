@@ -26,7 +26,6 @@ public class RobotMap {
   // Controllers
   public static int driveController = 0;
   public static int operController = 1;
-  public static int operPOV = 0;
 
   //Sensors
   public static int centerSensor = 0;
@@ -35,7 +34,7 @@ public class RobotMap {
   public static int camera = 3;
   
   //Solenoids
-  public static int backStilt12pcm = 1;
+  public static int backStilt12pcm = 0;
   public static int backStilt12in = 6;
   public static int backStilt12out = 7;
 
@@ -47,29 +46,26 @@ public class RobotMap {
   public static int frontStilts12in = 0;
   public static int frontStilts12out = 1;
 
-  public static int frontStilts8pcm = 1;
+  public static int frontStilts8pcm = 0;
   public static int frontStilts8in = 4;
   public static int frontStilts8out = 5;
 
   public static int gripperpcm = 1;
-  public static int gripperin = 2;
-  public static int gripperout = 3;
+  public static int gripperin = 3;
+  public static int gripperout = 2;
 
   public static int rollerpcm = 1;
-  public static int rollerin = 0;
-  public static int rollerout = 1;
+  public static int rollerin = 1;
+  public static int rollerout = 0;
 
-  public static int tower1pcm = 0;
+  public static int tower1pcm = 1;
   public static int tower1in = 6;
   public static int tower1out = 7;
 
-  public static int tower2pcm = 0;
-  public static int tower2in = 4;
-  public static int tower2out = 5;
-
-  public static int brakepcm = 0;
-  public static int brakein = 0;
-  public static int brakeout = 0;
+  public static int tower2pcm = 1;
+  public static int tower2in = 5;
+  public static int tower2out = 4;
+  
 
   //Cameras
   public static int pixyCam = 0;

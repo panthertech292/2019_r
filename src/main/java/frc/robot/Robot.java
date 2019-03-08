@@ -16,6 +16,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import frc.robot.Alignment;
 import frc.robot.commands.UpdateArduino;
+import frc.robot.commands.DriveCommands.AutoStart;
+import frc.robot.commands.StiltCommands.RaiseAllStilts;
+import frc.robot.commands.TowerCommands.TowerStage1;
 import frc.robot.subsystems.*;
 
 /**
@@ -56,6 +59,9 @@ public class Robot extends TimedRobot {
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
     m_oi = new OI();
+
+    (new RaiseAllStilts()).start();
+    (new TowerStage1()).start();
   }
 
   /**
@@ -103,6 +109,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_chooser.getSelected();
+    m_chooser.addOption("AutoStart", new AutoStart());
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
